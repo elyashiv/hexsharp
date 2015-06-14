@@ -1,0 +1,92 @@
+"Name" = Sharp Grammar
+"Version" = 1.0
+"Author" = Michael Bebenita
+"Case Sensitive" = True
+
+"Start Symbol" = <Variable_Declarations>
+
+! Scanner Rules
+{LETTER} = {Letter}
+{DIGIT} = {Digit}
+{ALPHA_NUMERIC} = {DIGIT} + {LETTER}
+{HEX_DIGIT} = {DIGIT} + [a-fA-F]
+{String Char} = {Printable} - ["]
+
+! Identifiers must start with a letter followed any amount of letters, digits or underscores.
+
+identifier                   = {LETTER}({ALPHA_NUMERIC} | _)*
+
+! Literals may be either true or false, integers, real numbers, or characters.
+
+boolean_literal            = (true)|(false)
+integer_literal            = ({DIGIT}+) | (0x{HEX_DIGIT}+)
+real_literal               = {DIGIT}*.{DIGIT}+f
+character_literal          = ''{LETTER}''
+string_literal             = '"'{String Char}*'"'
+
+<Literal>                  ::= boolean_literal
+                             | integer_literal  
+                             | real_literal 
+                             | character_literal
+                             | string_literal
+!! Types
+<Type>                     ::= <Structure_Type>
+                             | <Primitive_Type>
+                             | <Array_Type>
+
+<Structure_Type>           ::= identifier
+<Primitive_Type>           ::= bool
+                             | int
+                             | real
+                             | char
+                             | void
+<Array_Type>               ::= <Structure_Type> '[' ']'
+                             | <Primitive_Type> '[' ']'
+
+!!
+!! Variable stuff.
+!!
+
+<Variable_Declarations>    ::= <Variable_Declaration>
+                             | <Variable_Declarations> <Variable_Declaration>
+
+<Variable_Declaration>     ::= <Type> identifier ;
+                             | <Type> identifier = <Expression> ;
+                             | <Type> identifier = new '[' <Expression> ']' ;
+                             | <Type> identifier = '{' <Elements> '}' ;
+
+<Elements>                 ::= <Element>
+                             | <Elements> , <Element>
+<Element>                  ::= <Expression>
+                             | '{' <Elements> '}'
+
+!! expressions
+<Expression>               ::= <Expression_Term>
+                             | <Expression> + <Expression_Term>
+                             | <Expression> - <Expression_Term>
+                                   
+<Expression_Term>          ::= <Expression_Factor>
+                             | <Expression_Term> * <Expression_Factor>
+                             | <Expression_Term> / <Expression_Factor>
+
+<Expression_Factor>        ::= <Expression_Binary>
+                             | <Expression_Factor> % <Expression_Binary>
+                             | <Expression_Factor> '>' <Expression_Binary>
+                             | <Expression_Factor> '<' <Expression_Binary>
+                             | <Expression_Factor> '>=' <Expression_Binary>
+                             | <Expression_Factor> '<=' <Expression_Binary>
+                             | <Expression_Factor> '==' <Expression_Binary>
+                             | <Expression_Factor> '!=' <Expression_Binary>
+
+<Expression_Binary>        ::= <Expression_Unary>
+                             | <Expression_Binary> && <Expression_Unary>
+                             | <Expression_Binary> || <Expression_Unary>
+
+<Expression_Unary>         ::= + <Expression_Primary>
+                             | - <Expression_Primary>
+                             | ! <Expression_Primary>
+                             | <Expression_Primary> 
+                             | <Expression_Primary> '[' <Expression> ']'
+
+<Expression_Primary>       ::= <Literal>
+                             | '(' <Expression> ')'
