@@ -1,7 +1,7 @@
-"Name" = Sharp Grammar
-"Version" = 1.0
-"Author" = Michael Bebenita
-"Case Sensitive" = True
+"Name" = 'Sharp Grammar'
+"Version" = '1.0'
+"Author" = 'Michael Bebenita'
+"Case Sensitive" = 'True'
 
 "Start Symbol" = <Expression>
 
