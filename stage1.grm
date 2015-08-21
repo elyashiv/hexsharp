@@ -6,17 +6,16 @@
 "Start Symbol" = <Literal>
 
 ! Scanner Rules
-{LETTER} = {Letter}
-{DIGIT} = {Digit}
+
 {ALPHA_NUMERIC} = {DIGIT} + {LETTER}
-{HEX_DIGIT} = {DIGIT} + [a-fA-F]
+{HEX_DIGIT} = {DIGIT} + [abcdef] + [ABCDEF]
 {String Char} = {Printable} - ["]
 
 ! Literals may be either true or false, integers, real numbers, or characters.
 
 boolean_literal            = (true)|(false)
 integer_literal            = ({DIGIT}+) | (0x{HEX_DIGIT}+)
-real_literal               = {DIGIT}*.{DIGIT}+f
+real_literal               = {DIGIT}*'.'{DIGIT}+f
 character_literal          = ''{LETTER}''
 string_literal             = '"'{String Char}*'"'
 
