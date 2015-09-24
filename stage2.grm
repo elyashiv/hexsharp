@@ -49,7 +49,6 @@ string_literal             = '"'{String Char}*'"'
                              | '-' <Expression_Primary>
                              | '!' <Expression_Primary>
                              | <Expression_Primary> 
-                             | <Expression_Primary> '[' <Expression> ']'
 
 <Expression_Primary>       ::= <Literal>
                              | '(' <Expression> ')'
