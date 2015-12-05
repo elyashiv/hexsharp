@@ -60,7 +60,7 @@ string_literal             = '"'{String Char}*'"'
 
 <Variable_Declaration>     ::= <Type> identifier ';'
                              | <Type> identifier '=' <Expression> ';'
-                             | <Type> identifier '=' new '[' <Expression> ']' ';'
+                             | <Type> identifier '=' 'new' '[' <Expression> ']' ';'
                              | <Type> identifier '=' '{' <Elements> '}' ';'
 
 <Elements>                 ::= <Element>
@@ -89,7 +89,6 @@ string_literal             = '"'{String Char}*'"'
                              | <Statements> <Statement>
 
 <Statement>                ::= <Variable_Declaration>
-                             | <Structure_Declaration>
                              | <Function_Call> ';'
                              | <Assignment> ';'
                              | return <Expression> ';'
